@@ -26,16 +26,16 @@
         {
             "name": "Almir Hodzic",
             "email": "hello@novafront.dev",
-            "homepage": "https://novafront.dev",
+            "homepage": "https://staging.novafront.dev",
             "role": "Developer"
         }
     ],
     "support": {
         "issues": "https://github.com/almirhodzic/nova-toggle/issues",
         "source": "https://github.com/almirhodzic/nova-toggle",
-        "docs": "https://docs.novafront.dev/nova-toggle"
+        "docs": "https://staging.novafront.dev/nova-toggle/docs"
     },
-    "homepage": "https://novafront.dev/nova-toggle",
+    "homepage": "https://staging.novafront.dev",
     "require": {
         "php": "^8.2",
         "laravel/nova": "^5.0"
