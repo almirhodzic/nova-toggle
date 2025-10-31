@@ -8,15 +8,15 @@ use Laravel\Nova\Events\ServingNova;
 use Laravel\Nova\Http\Middleware\Authenticate;
 use Laravel\Nova\Nova;
 
-class FieldServiceProvider extends ServiceProvider
+class ToggleServiceProvider extends ServiceProvider
 {
     public function boot(): void
     {
         Nova::serving(function (ServingNova $event) {
-            Nova::script('nova-toggle', __DIR__ . '/../dist/js/field.js');
+            Nova::script('nova-toggle', __DIR__ . '/../dist/js/toggle.js');
 
-            if (file_exists(__DIR__ . '/../dist/css/field.css')) {
-                Nova::style('nova-toggle', __DIR__ . '/../dist/css/field.css');
+            if (file_exists(__DIR__ . '/../dist/css/toggle.css')) {
+                Nova::style('nova-toggle', __DIR__ . '/../dist/css/toggle.css');
             }
         });
 

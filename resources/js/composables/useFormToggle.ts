@@ -1,4 +1,4 @@
-// packages/nova-toggle/resources/js/composables/useFormField.ts
+// packages/nova-toggle/resources/js/composables/useFormToggle.ts
 import { computed, getCurrentInstance, onMounted, ref } from 'vue';
 
 interface Field {
@@ -10,7 +10,7 @@ interface Field {
     [key: string]: any;
 }
 
-interface FormFieldProps {
+interface FormToggleProps {
     resourceName?: string;
     resourceId?: string | number;
     field?: Field;
@@ -18,9 +18,9 @@ interface FormFieldProps {
     errors?: object;
 }
 
-export function useFormField() {
+export function useFormToggle() {
     const instance = getCurrentInstance();
-    const props = instance?.props as unknown as FormFieldProps;
+    const props = instance?.props as unknown as FormToggleProps;
 
     const value = ref<any>(null);
 

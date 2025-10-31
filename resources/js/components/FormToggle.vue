@@ -43,7 +43,7 @@
 
 <script setup lang="ts">
 import { computed, onBeforeUnmount, onMounted, ref } from 'vue';
-import { useFormField } from '../composables/useFormField';
+import { useFormToggle } from '../composables/useFormToggle';
 
 interface Props {
     resourceName?: string;
@@ -57,7 +57,7 @@ interface Props {
 defineProps<Props>();
 
 const { currentField, value, loading, currentlyIsReadonly, setInitialValue } =
-    useFormField();
+    useFormToggle();
 
 const isDark = ref(false);
 let mediaQuery: MediaQueryList | null = null;

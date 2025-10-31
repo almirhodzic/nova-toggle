@@ -8,10 +8,10 @@ export default defineConfig({
         outDir: 'dist',
         emptyOutDir: true,
         lib: {
-            entry: 'resources/js/field.js',
+            entry: 'resources/js/toggle.js',
             name: 'field',
             formats: ['iife'],
-            fileName: () => 'js/field.js',
+            fileName: () => 'js/toggle.js',
         },
         rollupOptions: {
             external: [
@@ -24,7 +24,7 @@ export default defineConfig({
                     vue: 'Vue',
                 },
                 assetFileNames: (assetInfo) => {
-                    if (assetInfo.name === 'style.css') return 'css/field.css';
+                    if (assetInfo.name === 'style.css') return 'css/toggle.css';
                     return assetInfo.name;
                 },
             },
