@@ -2,7 +2,7 @@
 
 A Laravel Nova 5 toggle field that allows quick boolean updates directly from the index view.
 
-![License](https://img.shields.io/badge/license-MIT-blue.svg)
+![License](https://img.shields.io/badge/license-MIT-NC-blue.svg)
 ![Nova](https://img.shields.io/badge/Nova-5.x-blue.svg)
 ![PHP](https://img.shields.io/badge/PHP-8.2+-blue.svg)
 
@@ -231,7 +231,7 @@ public function fields(NovaRequest $request)
 
 ## License
 
-The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
+The MIT-NC License (MIT-NC). Please see [License File](LICENSE.md) for more information.
 
 ## Credits
 
