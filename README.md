@@ -17,6 +17,20 @@ A Laravel Nova 5 toggle field that allows quick boolean updates directly from th
 - ⚡ Vue 3 Composition API
 - 🌓 Full dark mode support
 
+## ⚠️ Beta Notice
+
+**This package is currently in beta phase.**
+
+Please note that this software is provided "as is", without warranty of any kind, express or implied. By installing and using this package, you acknowledge that:
+
+- The package is still under active development and may contain bugs
+- Features and APIs may change in future releases
+- You use this package at your own risk
+- The author(s) shall not be held liable for any damages, data loss, or issues arising from the use of this package
+- It is recommended to thoroughly test the package in a development environment before using it in production
+
+We appreciate your feedback and bug reports to help improve this package!
+
 ## Installation
 
 ```bash
@@ -64,7 +78,7 @@ Toggle::make('Active', 'is_active')
 
 ```php
 Toggle::make('Active', 'is_active')
-    ->valueLabelText('JA', 'NEIN');  // ON label, OFF label
+    ->valueLabelText('ON', 'OFF');  // ON label, OFF label
 ```
 
 #### Label Colors
@@ -204,6 +218,7 @@ public function fields(NovaRequest $request)
 
 ## Support
 
+- [Issues](https://github.com/almirhodzic/nova-toggle/issues)
 - [Source Code](https://github.com/almirhodzic/nova-toggle)
 
 ## License
@@ -213,6 +228,7 @@ The MIT License (MIT). Please see [License File](LICENSE.md) for more informatio
 ## Credits
 
 - [Almir Hodzic](https://frontbyte.ch)
+- [All Contributors](../../contributors)
 
 ---
 
