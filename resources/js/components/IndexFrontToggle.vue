@@ -6,7 +6,9 @@
             v-else
             class="flex items-center gap-2"
             :class="
-                loading || field.readonly ? 'cursor-default' : 'cursor-pointer'
+                loading || field.readonly
+                    ? 'cursor-default'
+                    : 'cursor-pointer'
             "
         >
             <label
@@ -86,6 +88,10 @@ interface Props {
     resource?: Record<string, any>;
 }
 
+const inputClasses = computed(() =>
+    loading.value || props.field.readonly ? 'cursor-default' : 'cursor-pointer',
+);
+
 const props = defineProps<Props>();
 
 declare const Nova: any;
@@ -93,29 +99,11 @@ declare const Nova: any;
 const loading = ref(false);
 const value = ref<boolean>(props.field.value ?? false);
 const isDark = ref(false);
-
-// Robuste ID-Ermittlung
-const id = computed(() => {
-    // Priorität: resourceId > resource.id.value > resource.id
-    if (props.resourceId) return props.resourceId;
-    if (props.resource?.id?.value) return props.resource.id.value;
-    if (props.resource?.id) return props.resource.id;
-
-    console.error('IndexToggle: No resource ID found', {
-        resourceId: props.resourceId,
-        resource: props.resource,
-        field: props.field,
-    });
-    return null;
-});
+const id = props.resourceId ?? props.resource?.id?.value;
 
 let mediaQuery: MediaQueryList | null = null;
 
 // Computed
-const inputClasses = computed(() =>
-    loading.value || props.field.readonly ? 'cursor-default' : 'cursor-pointer',
-);
-
 const labelClasses = computed(() => [
     loading.value || props.field.readonly
         ? 'pointer-events-none cursor-default opacity-50'
@@ -167,27 +155,15 @@ const handleChange = async () => {
         return;
     }
 
-    // ID-Check vor dem Request
-    if (!id.value) {
-        Nova.$toasted?.show('Error: Resource ID not found', { type: 'error' });
-        console.error('Cannot toggle: No resource ID', props);
-        return;
-    }
-
     const prev = value.value;
     value.value = !prev;
     loading.value = true;
 
     try {
-        const url = `/nova-vendor/nova-toggle/toggle/${props.resourceName}/${id.value}`;
-        console.log('Toggle request:', {
-            url,
-            attribute: props.field.attribute,
-        });
-
-        const res = await Nova.request().post(url, {
-            attribute: props.field.attribute,
-        });
+        const res = await Nova.request().post(
+            `/nova-vendor/nova-toggle/toggle/${props.resourceName}/${id}`,
+            { attribute: props.field.attribute },
+        );
 
         if (res.data?.success) {
             value.value = !!res.data.value;
@@ -207,16 +183,11 @@ const handleChange = async () => {
             } else {
                 Nova.$toasted?.show(getToastMessage(), { type: 'success' });
             }
-        } else {
-            throw new Error('Invalid response from server');
         }
-    } catch (e: any) {
-        console.error('Toggle error:', e);
+    } catch (e) {
+        console.error(e);
         value.value = prev;
-
-        const errorMessage =
-            e.response?.data?.message || e.message || 'Error occurred.';
-        Nova.$toasted?.show(errorMessage, { type: 'error' });
+        Nova.$toasted?.show('Error occurred.', { type: 'error' });
     } finally {
         loading.value = false;
     }
