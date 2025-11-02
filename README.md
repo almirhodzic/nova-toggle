@@ -223,6 +223,14 @@ class IsActiveFilter extends BooleanFilter
 }
 ```
 
+Now use
+
+```php
+Toggle::make('Active', 'is_active')
+    ->filterable()
+    ...
+```
+
 ### Help Text
 
 Add contextual help text for different views:
@@ -232,7 +240,7 @@ Toggle::make('Active', 'is_active')
     ->helpOnIndex('Toggle to activate/deactivate')
     ->helpOnForm('Enable this option to activate the feature')
     ->helpOnDetail('Current activation status');
-```
+````
 
 ### Visibility & Access Control
 
@@ -279,6 +287,7 @@ public function fields(NovaRequest $request)
         Text::make('Name'),
 
         Toggle::make('Active', 'is_active')
+            ->filterable()
             ->onColor('#10b981', '#059669')
             ->offColor('#ef4444', '#dc2626')
             ->onBullet('#ffffff')
