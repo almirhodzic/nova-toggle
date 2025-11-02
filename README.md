@@ -1,4 +1,4 @@
-# Nova Toggle
+# Nova-Toggle 5
 
 A Laravel Nova 5 toggle field that allows quick boolean updates directly from the index view.
 
