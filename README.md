@@ -12,8 +12,9 @@ A Laravel Nova 5 toggle field that allows quick boolean updates directly from th
 - 🎨 Customizable colors for light and dark mode
 - 🔒 Built-in readonly and visibility controls
 - 💡 Optional help text for different views
-- 🔄 Optional page reload after toggle
 - 🏷️ Custom ON/OFF labels with color customization
+- 🔕 Optional toast notification control
+- 🏷️ Customizable toast message labels
 - ⚡ Vue 3 Composition API
 - 🌓 Full dark mode support
 
@@ -98,6 +99,26 @@ Toggle::make('Active', 'is_active')
     ->valueLabelOffColors('#a1a1a1', '#737373'); // OFF label colors (light, dark)
 ```
 
+### Toast Notifications
+
+#### Custom Toast Label
+
+By default, the toast message uses the resource's `name`, `label`, `title`, or the resource's singular label. You can customize which model attribute to use:
+
+```php
+Toggle::make('Show', 'show')
+    ->toastLabelKey('question'); // Uses $model->question instead of default
+```
+
+**Default fallback order:** `name` → `label` → `title` → resource singular label
+
+#### Disable Toast Notifications
+
+```php
+Toggle::make('Active', 'is_active')
+    ->toastShow(false); // No toast notification on toggle
+```
+
 ### Help Text
 
 Add contextual help text for different views:
@@ -107,15 +128,6 @@ Toggle::make('Active', 'is_active')
     ->helpOnIndex('Toggle to activate/deactivate')
     ->helpOnForm('Enable this option to activate the feature')
     ->helpOnDetail('Current activation status');
-```
-
-### Behavior
-
-#### Reload Page After Toggle
-
-```php
-Toggle::make('Active', 'is_active')
-    ->reloadPage(true);
 ```
 
 ### Visibility & Access Control
@@ -171,7 +183,7 @@ public function fields(NovaRequest $request)
             ->valueLabelOffColors('#fecaca', '#fca5a5')
             ->helpOnIndex('Click to toggle status')
             ->helpOnForm('Enable to make this item visible')
-            ->reloadPage(false)
+            ->toastShow(true)
             ->readonlyWhen(function ($request, $resource) {
                 return !$request->user()->can('edit', $resource);
             }),
@@ -180,9 +192,14 @@ public function fields(NovaRequest $request)
             ->onColor('#f59e0b')
             ->offColor('#6b7280')
             ->valueLabelText('★', '☆')
+            ->toastShow(false)
             ->hideWhen(function ($request, $resource) {
                 return !$resource->is_active;
             }),
+
+        Toggle::make('Show FAQ', 'show')
+            ->toastLabelKey('question') // Uses $faq->question for toast message
+            ->helpOnIndex('Toggle visibility'),
     ];
 }
 ```
@@ -191,21 +208,22 @@ public function fields(NovaRequest $request)
 
 ### Methods
 
-| Method                  | Parameters                                           | Description                      |
-| ----------------------- | ---------------------------------------------------- | -------------------------------- |
-| `onColor()`             | `string $light, ?string $dark = null`                | Background color when ON         |
-| `offColor()`            | `string $light, ?string $dark = null`                | Background color when OFF        |
-| `onBullet()`            | `string $light, ?string $dark = null`                | Bullet color when ON             |
-| `offBullet()`           | `string $light, ?string $dark = null`                | Bullet color when OFF            |
-| `valueLabelText()`      | `?string $onLabel = 'ON', ?string $offLabel = 'OFF'` | Custom label text                |
-| `valueLabelOnColors()`  | `string $light, ?string $dark = null`                | ON label color                   |
-| `valueLabelOffColors()` | `string $light, ?string $dark = null`                | OFF label color                  |
-| `reloadPage()`          | `bool $reload = true`                                | Reload page after toggle         |
-| `hideWhen()`            | `callable $callback`                                 | Hide field based on condition    |
-| `readonlyWhen()`        | `callable $callback`                                 | Make readonly based on condition |
-| `helpOnIndex()`         | `string $text`                                       | Help text on index view          |
-| `helpOnForm()`          | `string $text`                                       | Help text on form view           |
-| `helpOnDetail()`        | `string $text`                                       | Help text on detail view         |
+| Method                  | Parameters                                           | Description                            |
+| ----------------------- | ---------------------------------------------------- | -------------------------------------- |
+| `onColor()`             | `string $light, ?string $dark = null`                | Background color when ON               |
+| `offColor()`            | `string $light, ?string $dark = null`                | Background color when OFF              |
+| `onBullet()`            | `string $light, ?string $dark = null`                | Bullet color when ON                   |
+| `offBullet()`           | `string $light, ?string $dark = null`                | Bullet color when OFF                  |
+| `valueLabelText()`      | `?string $onLabel = 'ON', ?string $offLabel = 'OFF'` | Custom label text                      |
+| `valueLabelOnColors()`  | `string $light, ?string $dark = null`                | ON label color                         |
+| `valueLabelOffColors()` | `string $light, ?string $dark = null`                | OFF label color                        |
+| `toastShow()`           | `bool $show = true`                                  | Show/hide toast notification on toggle |
+| `toastLabelKey()`       | `string $key`                                        | Model attribute to use for toast label |
+| `hideWhen()`            | `callable $callback`                                 | Hide field based on condition          |
+| `readonlyWhen()`        | `callable $callback`                                 | Make readonly based on condition       |
+| `helpOnIndex()`         | `string $text`                                       | Help text on index view                |
+| `helpOnForm()`          | `string $text`                                       | Help text on form view                 |
+| `helpOnDetail()`        | `string $text`                                       | Help text on detail view               |
 
 ### Default Colors
 
@@ -217,6 +235,13 @@ public function fields(NovaRequest $request)
 | OFF Bullet     | `#ffffff`  | `#ffffff` |
 | ON Label       | `#ffffff`  | `#ffffff` |
 | OFF Label      | `#a1a1a1`  | `#737373` |
+
+### Default Behavior
+
+| Option          | Default Value                                                          |
+| --------------- | ---------------------------------------------------------------------- |
+| `toastShow`     | `true`                                                                 |
+| `toastLabelKey` | `null` (uses fallback: name → label → title → resource singular label) |
 
 ## Requirements
 

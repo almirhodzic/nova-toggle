@@ -18,14 +18,12 @@ class ToggleController extends Controller
             return response()->json(['error' => 'Unauthorized'], 403);
         }
 
-        // Finde Resource-Class dynamisch
         $resourceClass = Nova::resourceForKey($resource);
 
         if (!$resourceClass) {
             return response()->json(['error' => 'Resource not found'], 404);
         }
 
-        // Model über Resource finden
         $model = $resourceClass::newModel()->findOrFail($resourceId);
 
         $attribute = $request->input('attribute');
@@ -34,28 +32,23 @@ class ToggleController extends Controller
             return response()->json(['error' => 'Attribute required'], 400);
         }
 
-        // Toggle
         $newValue = !$model->{$attribute};
         $model->{$attribute} = $newValue;
 
-        // Log Action Event
         Nova::actionEvent()->forResourceUpdate($request->user(), $model)->save();
 
         $model->save();
 
-        // Cache leeren wenn NovaPlugin
-        if (get_class($model) === \App\Models\NovaPlugin::class) {
-            \App\Support\Plugins::clearCache();
-        }
+        //$label = $model->name ?? $model->label ?? $model->title ?? $resourceClass::singularLabel();
 
-        // Label für Toast
-        $label = $model->name ?? $model->label ?? $model->title ?? $resourceClass::singularLabel();
-        $reloadNavigation = get_class($model) === \App\Models\NovaPlugin::class;
+        $labelKey = $request->input('labelKey', null);
+        $label = $labelKey && isset($model->{$labelKey})
+            ? $model->{$labelKey}
+            : ($model->name ?? $model->label ?? $model->title ?? $resourceClass::singularLabel());
 
         return response()->json([
             'success' => true,
             'value' => $newValue,
-            'reloadNavigation' => $reloadNavigation,
             'label' => $label
         ]);
     }

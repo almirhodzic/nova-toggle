@@ -14,7 +14,6 @@ class Toggle extends Field
     protected $onColorDark = '#009689';
     protected $offColor = '#e5e5e5';
     protected $offColorDark = '#323f57';
-    protected $reloadPage = false;
     protected $onBulletColor = '#ffffff';
     protected $onBulletColorDark = '#ffffff';
     protected $offBulletColor = '#ffffff';
@@ -30,6 +29,8 @@ class Toggle extends Field
     protected $onLabelColorDark = '#ffffff';
     protected $offLabelColor = '#a1a1a1';
     protected $offLabelColorDark = '#737373';
+    protected $toastShow = true;
+    protected $toastLabelKey = null;
 
     public function __construct($name, $attribute = null, ?callable $resolveCallback = null)
     {
@@ -61,12 +62,6 @@ class Toggle extends Field
     {
         $this->offColor = $light;
         $this->offColorDark = $dark ?? $light;
-        return $this;
-    }
-
-    public function reloadPage(bool $reload = true): self
-    {
-        $this->reloadPage = $reload;
         return $this;
     }
 
@@ -121,6 +116,18 @@ class Toggle extends Field
         return $this;
     }
 
+    public function toastLabelKey(string $key): self
+    {
+        $this->toastLabelKey = $key;
+        return $this;
+    }
+
+    public function toastShow(bool $show = true): self
+    {
+        $this->toastShow = $show;
+        return $this;
+    }
+
     public function jsonSerialize(): array
     {
         $request = app(NovaRequest::class);
@@ -135,7 +142,6 @@ class Toggle extends Field
             $readonly = call_user_func($this->readonlyWhenCallback, $request, $this->resource ?? null);
         }
 
-        // Guard-Check für readonly
         if (!$readonly) {
             $guards = config('nova-toggle.guards', ['web']);
             $hasAccess = collect($guards)->contains(fn($guard) => auth()->guard($guard)->check());
@@ -144,6 +150,7 @@ class Toggle extends Field
 
         return array_merge(parent::jsonSerialize(), [
             'readonly' => $readonly,
+            'hidden' => $hidden,
             'onColor' => $this->onColor,
             'onColorDark' => $this->onColorDark,
             'offColor' => $this->offColor,
@@ -152,9 +159,6 @@ class Toggle extends Field
             'onBulletColorDark' => $this->onBulletColorDark,
             'offBulletColor' => $this->offBulletColor,
             'offBulletColorDark' => $this->offBulletColorDark,
-            'reloadPage' => $this->reloadPage,
-            'readonly' => $readonly,
-            'hidden' => $hidden,
             'helpOnIndex' => $this->helpOnIndex,
             'helpOnForm' => $this->helpOnForm,
             'helpOnDetail' => $this->helpOnDetail,
@@ -164,6 +168,8 @@ class Toggle extends Field
             'onLabelColorDark' => $this->onLabelColorDark,
             'offLabelColor' => $this->offLabelColor,
             'offLabelColorDark' => $this->offLabelColorDark,
+            'toastShow' => $this->toastShow,
+            'toastLabelKey' => $this->toastLabelKey,
         ]);
     }
 }

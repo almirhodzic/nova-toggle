@@ -75,8 +75,9 @@ interface Field {
     onColorDark?: string;
     offColorDark?: string;
     name?: string;
-    reloadPage?: boolean;
     helpOnIndex?: string;
+    toastShow?: boolean;
+    toastLabelKey?: string;
 }
 
 interface Props {
@@ -187,24 +188,19 @@ const handleChange = async () => {
 
         const res = await Nova.request().post(url, {
             attribute: props.field.attribute,
+            labelKey: props.field.toastLabelKey,
         });
 
         if (res.data?.success) {
             value.value = !!res.data.value;
 
-            const getToastMessage = () => {
-                const action = value.value ? 'activated' : 'deactivated';
-                const label = res.data.label || props.field.name;
-                return `"${label}" ${action}!`;
-            };
+            if (props.field.toastShow !== false) {
+                const getToastMessage = () => {
+                    const action = value.value ? 'activated' : 'deactivated';
+                    const label = res.data.label || props.field.name;
+                    return `"${label}" ${action}!`;
+                };
 
-            if (props.field.reloadPage) {
-                sessionStorage.setItem(
-                    'nova-toggle-message',
-                    getToastMessage(),
-                );
-                setTimeout(() => window.location.reload(), 100);
-            } else {
                 Nova.$toasted?.show(getToastMessage(), { type: 'success' });
             }
         } else {
