@@ -12,18 +12,18 @@ Password: demo1234
 
 ## Features
 
-- 🎯 Quick toggle directly from index view
-- 🎨 Customizable colors for light and dark mode
-- 🔒 Built-in readonly and visibility controls
-- 💡 Optional help text for different views
-- 🏷️ Custom ON/OFF labels with color customization
-- 🔕 Optional toast notification control
-- 🏷️ Customizable toast message labels
-- 🔍 Filter support for index views
-- ⚡ Vue 3 Composition API
-- 🌓 Full dark mode support
+- Quick toggle directly from index view
+- Customizable colors for light and dark mode
+- Built-in readonly and visibility controls
+- Optional help text for different views
+- Custom ON/OFF labels with color customization
+- Optional toast notification control
+- Customizable toast message labels
+- Filter support for index views
+- Vue 3 Composition API
+- Full dark mode support
 
-## ⚠️ Beta Notice
+## Beta Notice
 
 **This package is currently in beta phase.**
 
@@ -37,7 +37,7 @@ Please note that this software is provided "as is", without warranty of any kind
 
 We appreciate your feedback and bug reports to help improve this package!
 
-### 🐛 Found a Bug or Issue?
+### Found a Bug or Issue?
 
 I would greatly appreciate if you could report any bugs, irregularities, or unexpected behavior you encounter. Your feedback helps make this package better for everyone!
 
@@ -82,8 +82,8 @@ Toggle::make('Active', 'is_active')
 
 ```php
 Toggle::make('Active', 'is_active')
-    ->onBullet('#ffffff')              // Same for both modes
-    ->offBullet('#ffffff', '#cccccc'); // Light mode, Dark mode
+    ->onBullet('white')           // Same for both modes
+    ->offBullet('white', 'grey'); // Light mode, Dark mode
 ```
 
 ### Labels
