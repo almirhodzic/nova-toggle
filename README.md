@@ -25,21 +25,10 @@ Password: demo1234
 - Vue 3 Composition API
 - Full dark mode support
 
-## Beta Notice
+## Bug or Issues
 
-**This package is currently in beta phase.**
-
-Please note that this software is provided "as is", without warranty of any kind, express or implied. By installing and using this package, you acknowledge that:
-
-- The package is still under active development and may contain bugs
-- Features and APIs may change in future releases
-- You use this package at your own risk
-- The author(s) shall not be held liable for any damages, data loss, or issues arising from the use of this package
-- It is recommended to thoroughly test the package in a development environment before using it in production
-
-We appreciate your feedback to help improve this package! Thank you 🙏
-
-Found a Bug or Issue? Please report here: [GitHub Issues](https://github.com/almirhodzic/nova-toggle/issues)
+Found a Bug or Issue? Please report here: [GitHub Issues](https://github.com/almirhodzic/nova-toggle/issues)  
+We appreciate your feedback to help improve this package.
 
 ## Installation
 
