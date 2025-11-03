@@ -32,5 +32,5 @@ THE SOFTWARE.
 For commercial use of this software, please contact:
 
 **Almir Hodzic**  
-Email: hello@frontbyte.ch  
-Website: https://frontbyte.ch
+Email: [hello@frontbyte.ch](hello@frontbyte.ch)  
+Website: [https://frontbyte.ch](https://frontbyte.ch)

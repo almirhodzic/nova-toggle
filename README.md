@@ -8,7 +8,7 @@ Demo: [https://demo.novafront.dev](https://demo.novafront.dev)
 User: [demo@novafront.dev](demo@novafront.dev)  
 Password: demo1234
 
-![License: MIT-NC](https://img.shields.io/badge/License-MIT--NC-blue.svg)
+![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)
 ![Nova](https://img.shields.io/badge/Nova-5.x-blue.svg)
 ![PHP](https://img.shields.io/badge/PHP-8.2+-blue.svg)
 
@@ -377,7 +377,7 @@ public function filters(NovaRequest $request): array
 
 ## License
 
-The MIT-NC License (MIT-NC). Please see [License File](LICENSE.md) for more information.
+The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
 
 ## Credits
 
@@ -386,4 +386,4 @@ The MIT-NC License (MIT-NC). Please see [License File](LICENSE.md) for more info
 
 ---
 
-Made with ❤️ by [Frontbyte](https://frontbyte.ch)
+By [Frontbyte](https://frontbyte.ch)
