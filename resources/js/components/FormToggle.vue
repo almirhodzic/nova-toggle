@@ -5,19 +5,23 @@
   MIT License
 -->
 <template>
+    <!-- Nova's default field wrapper for consistent form styling -->
     <DefaultField
         :field="currentField"
         :errors="errors"
         :full-width-content="fullWidthContent"
     >
         <template #field>
+            <!-- Toggle switch container with optional help text -->
             <div class="mt-1 flex items-center gap-2">
+                <!-- Toggle switch wrapper -->
                 <label
                     class="group relative inline-flex h-5 w-10 shrink-0 items-center overflow-hidden rounded-full inset-ring inset-ring-gray-900/5 outline-offset-2 outline-indigo-600 transition-colors duration-200 ease-in-out has-focus-visible:outline-2"
                     :class="labelClasses"
                     :style="[{ padding: '2.01px' }, wrapperStyle]"
                     @click="toggle"
                 >
+                    <!-- ON/OFF label text overlay -->
                     <span
                         v-if="currentField?.onLabel || currentField?.offLabel"
                         class="pointer-events-none absolute inset-0 flex items-center px-1.5 font-medium tracking-wide uppercase"
@@ -30,12 +34,16 @@
                                 : currentField?.offLabel
                         }}
                     </span>
+
+                    <!-- Sliding bullet/circle indicator -->
                     <span
                         class="inline-block h-4 w-4 rounded-full shadow-xs ring-1 ring-gray-900/5 transition-transform duration-200 ease-in-out"
                         :class="bulletClasses"
                         :style="bulletStyle"
                     />
                 </label>
+
+                <!-- Optional help text for form context -->
                 <p
                     v-if="currentField?.helpOnForm"
                     class="help-text text-xs italic"
@@ -51,6 +59,10 @@
 import { computed, onBeforeUnmount, onMounted, ref } from 'vue';
 import { useFormToggle } from '../composables/useFormToggle';
 
+/**
+ * Component props interface
+ * Extends Nova's standard field props for form usage
+ */
 interface Props {
     resourceName?: string;
     resourceId?: string | number;
@@ -62,32 +74,53 @@ interface Props {
 
 defineProps<Props>();
 
+// Extract form-specific functionality from composable
 const { currentField, value, loading, currentlyIsReadonly, setInitialValue } =
     useFormToggle();
 
 const isDark = ref(false);
 let mediaQuery: MediaQueryList | null = null;
 
+/**
+ * Toggle the field value
+ * Only allows toggling if field is not readonly
+ */
 const toggle = () => {
     if (!currentlyIsReadonly.value) {
         value.value = !value.value;
     }
 };
 
+/**
+ * Computed boolean representation of the value
+ * Ensures value is always a proper boolean
+ */
 const checked = computed(() => Boolean(value.value));
 
+/**
+ * Dynamic classes for the label wrapper
+ * Handles disabled state styling
+ */
 const labelClasses = computed(() => [
     loading.value || currentField.value?.readonly
         ? 'pointer-events-none cursor-default opacity-50'
         : 'cursor-pointer opacity-100',
 ]);
 
+/**
+ * Dynamic classes for the bullet
+ * Disables pointer events when readonly
+ */
 const bulletClasses = computed(() => [
     loading.value || currentField.value?.readonly
         ? 'pointer-events-none'
         : 'cursor-pointer',
 ]);
 
+/**
+ * Dynamic styles for ON/OFF label text
+ * Adjusts color based on toggle state and color scheme
+ */
 const labelTextStyle = computed(() => ({
     color: value.value
         ? isDark.value
@@ -98,6 +131,10 @@ const labelTextStyle = computed(() => ({
           : currentField.value?.offLabelColor,
 }));
 
+/**
+ * Dynamic styles for the sliding bullet
+ * Handles color and position based on toggle state
+ */
 const bulletStyle = computed(() => {
     const onColor = isDark.value
         ? currentField.value?.onBulletColorDark
@@ -112,6 +149,10 @@ const bulletStyle = computed(() => {
     };
 });
 
+/**
+ * Dynamic styles for the toggle background
+ * Changes background color based on toggle state and color scheme
+ */
 const wrapperStyle = computed(() => {
     const onColor = isDark.value
         ? currentField.value?.onColorDark
@@ -125,18 +166,32 @@ const wrapperStyle = computed(() => {
     };
 });
 
+/**
+ * Handle system color scheme changes
+ * Updates dark mode state when user switches system theme
+ */
 const handleColorSchemeChange = (e: MediaQueryListEvent) => {
     isDark.value = e.matches;
 };
 
+/**
+ * Initialize component on mount
+ * Sets field value and dark mode detection
+ */
 onMounted(() => {
+    // Initialize field value from props
     setInitialValue();
 
+    // Initialize dark mode detection
     mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
     isDark.value = mediaQuery.matches;
     mediaQuery.addEventListener('change', handleColorSchemeChange);
 });
 
+/**
+ * Cleanup on component unmount
+ * Removes color scheme change listener
+ */
 onBeforeUnmount(() => {
     mediaQuery?.removeEventListener('change', handleColorSchemeChange);
 });
