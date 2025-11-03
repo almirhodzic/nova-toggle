@@ -22,6 +22,7 @@ Password: demo1234
 - Optional toast notification control
 - Customizable toast message labels
 - Filter support for index views
+- Logs the update action in Nova's action events
 - Vue 3 Composition API
 - Full dark mode support
 
