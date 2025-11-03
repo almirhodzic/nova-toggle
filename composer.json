@@ -8,31 +8,24 @@
         "field",
         "toggle",
         "boolean",
-        "ui",
-        "component"
+        "ui"
     ],
     "license": "MIT",
     "authors": [
         {
             "name": "Almir Hodzic",
             "email": "hello@frontbyte.ch",
-            "homepage": "https://demo.novafront.dev",
-            "role": "Developer"
+            "homepage": "https://frontbyte.ch"
         }
     ],
     "support": {
         "issues": "https://github.com/almirhodzic/nova-toggle/issues",
-        "source": "https://github.com/almirhodzic/nova-toggle",
-        "docs": "https://github.com/almirhodzic/nova-toggle"
+        "source": "https://github.com/almirhodzic/nova-toggle"
     },
     "homepage": "https://demo.novafront.dev",
     "require": {
         "php": "^8.2",
         "laravel/nova": "^5.0"
-    },
-    "require-dev": {
-        "laravel/framework": "^10.0 || ^11.0 || ^12.0",
-        "orchestra/testbench": "^8.0"
     },
     "autoload": {
         "psr-4": {
@@ -46,19 +39,8 @@
             ]
         }
     },
-    "scripts": {
-        "post-install-cmd": [
-            "@php -r \"file_exists('node_modules') || (shell_exec('npm install') && shell_exec('npm run build'));\""
-        ],
-        "post-update-cmd": [
-            "@php -r \"shell_exec('npm install') && shell_exec('npm run build');\""
-        ]
-    },
     "config": {
-        "sort-packages": true,
-        "allow-plugins": {
-            "laravel/pint": true
-        }
+        "sort-packages": true
     },
     "minimum-stability": "stable",
     "prefer-stable": true
