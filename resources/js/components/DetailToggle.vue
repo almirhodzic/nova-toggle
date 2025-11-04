@@ -4,19 +4,18 @@
   Copyright (c) 2025 Almir Hodzic
   MIT License
 -->
-
 <template>
-    <!-- The outer Nova PanelItem wrapper provides consistent styling and layout within Nova detail panels -->
+    <!-- Nova's panel item wrapper for detail view -->
     <PanelItem :index="index" :field="field">
-        <!-- Replace the default "value" slot with a custom toggle presentation -->
         <template #value>
+            <!-- Read-only toggle display with optional help text -->
             <div class="flex items-center gap-2">
-                <!-- The visual toggle wrapper -->
+                <!-- Read-only toggle switch (non-interactive) -->
                 <label
                     class="group pointer-events-none relative inline-flex h-5 w-10 shrink-0 items-center overflow-hidden rounded-full opacity-50 inset-ring inset-ring-gray-900/5 outline-offset-2 outline-indigo-600 transition-colors duration-200 ease-in-out"
                     :style="[{ padding: '2.25px' }, wrapperStyle]"
                 >
-                    <!-- Optional ON/OFF labels inside the toggle -->
+                    <!-- ON/OFF label text overlay -->
                     <span
                         v-if="field.onLabel || field.offLabel"
                         class="pointer-events-none absolute inset-0 flex items-center font-medium tracking-wide uppercase"
@@ -26,14 +25,14 @@
                         {{ value ? field.onLabel : field.offLabel }}
                     </span>
 
-                    <!-- The small circular bullet that moves left/right -->
+                    <!-- Bullet/circle indicator (fixed position) -->
                     <span
                         class="inline-block h-4 w-4 rounded-full shadow-xs ring-1 ring-gray-900/5 transition-transform duration-200 ease-in-out"
                         :style="bulletStyle"
                     />
                 </label>
 
-                <!-- Optional helper text displayed next to the toggle (if defined and visible) -->
+                <!-- Optional help text for detail context -->
                 <p
                     v-if="field.helpOnDetail && !field.hidden"
                     class="help-text text-xs italic"
@@ -49,9 +48,8 @@
 import { computed, onBeforeUnmount, onMounted, ref } from 'vue';
 
 /**
- * Field interface represents configuration passed from Nova.
- * Each property corresponds to a customizable color, label,
- * or text option that can differ for light and dark themes.
+ * Field configuration interface
+ * Contains all display options for the toggle in detail view
  */
 interface Field {
     value?: boolean;
@@ -74,8 +72,8 @@ interface Field {
 }
 
 /**
- * Props interface for the component.
- * `field` is required; others are optional.
+ * Component props interface
+ * Used for read-only display in Nova's detail view
  */
 interface Props {
     index?: number;
@@ -87,27 +85,15 @@ interface Props {
 
 const props = defineProps<Props>();
 
-/**
- * `value` represents the boolean toggle state (on/off)
- * taken from the Nova field's current value.
- */
+// State
 const value = ref<boolean>(props.field.value ?? false);
-
-/**
- * Tracks whether the user's system is currently in dark mode.
- */
 const isDark = ref(false);
 
-/**
- * Reference to the system color scheme media query listener.
- */
 let mediaQuery: MediaQueryList | null = null;
 
 /**
- * Computed: Dynamic text color for ON/OFF labels inside the toggle.
- * Changes based on:
- *   - Toggle state (on/off)
- *   - User's theme (light/dark)
+ * Dynamic styles for ON/OFF label text
+ * Adjusts color based on toggle state and color scheme
  */
 const labelTextStyle = computed(() => ({
     color: value.value
@@ -122,8 +108,9 @@ const labelTextStyle = computed(() => ({
 }));
 
 /**
- * Computed: Styles for the toggle's moving bullet.
- * Sets the background color and translation distance.
+ * Dynamic styles for the bullet
+ * Handles color and position based on toggle state
+ * Note: Position is visual only, not interactive in detail view
  */
 const bulletStyle = computed(() => {
     const onColor = isDark.value
@@ -140,8 +127,8 @@ const bulletStyle = computed(() => {
 });
 
 /**
- * Computed: Background color of the toggle wrapper itself.
- * Reacts to both dark/light theme and ON/OFF state.
+ * Dynamic styles for the toggle background
+ * Changes background color based on toggle state and color scheme
  */
 const wrapperStyle = computed(() => {
     const onColor = isDark.value
@@ -157,16 +144,16 @@ const wrapperStyle = computed(() => {
 });
 
 /**
- * Handles changes to the user's color scheme preference (dark/light).
+ * Handle system color scheme changes
+ * Updates dark mode state when user switches system theme
  */
 const handleColorSchemeChange = (e: MediaQueryListEvent) => {
     isDark.value = e.matches;
 };
 
 /**
- * Lifecycle hook: initialize color scheme detection.
- * Registers a media query listener to detect when the user switches
- * between light and dark mode.
+ * Initialize component on mount
+ * Sets up dark mode detection
  */
 onMounted(() => {
     mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
@@ -175,7 +162,8 @@ onMounted(() => {
 });
 
 /**
- * Lifecycle hook: clean up event listeners when the component unmounts.
+ * Cleanup on component unmount
+ * Removes color scheme change listener
  */
 onBeforeUnmount(() => {
     mediaQuery?.removeEventListener('change', handleColorSchemeChange);
