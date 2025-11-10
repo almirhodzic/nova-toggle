@@ -1,12 +1,12 @@
 # Laravel Nova 5 Toggle Field
 
-A Laravel Nova 5 Toggle Field that allows quick boolean updates directly from the index view.
+This Laravel Nova 5 Toggle Field removes the detour into the edit page and lets you flip booleans directly in the index. Fewer clicks, less context switching, smoother workflow.
 
 ![Laravel Nova 5 Toggle Field](https://demo.novafront.dev/images/nova-toggle-github.png)
 
-Demo: [https://novafront.dev](https://novafront.dev)  
-User: [demo@novafront.dev](demo@novafront.dev)  
-Password: demo1234
+**Demo:** [https://novafront.dev](https://novafront.dev)  
+**User:** [demo@novafront.dev](demo@novafront.dev)  
+**Password:** demo1234
 
 ![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)
 ![Nova](https://img.shields.io/badge/Nova-5.x-blue.svg)
