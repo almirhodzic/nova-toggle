@@ -2,7 +2,7 @@
 
 This Laravel Nova 5 Toggle Field removes the detour into the edit page and lets you flip booleans directly in the index. Fewer clicks, less context switching, smoother workflow.
 
-![Laravel Nova 5 Toggle Field](https://demo.novafront.dev/images/nova-toggle-github.png)
+![Laravel Nova 5 Toggle Field](https://novafront.dev/images/toggle/nova-toggle-5-docs.png?v1)
 
 **Demo:** [https://novafront.dev](https://novafront.dev)  
 **User:** [demo@novafront.dev](demo@novafront.dev)  
