@@ -4,11 +4,11 @@ This Laravel Nova 5 Toggle Field removes the detour into the edit page and lets 
 
 ![Laravel Nova 5 Toggle Field](https://novafront.dev/images/toggle/nova-toggle-5-docs.png?v1)
 
-::: center
-![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)
-![Nova](https://img.shields.io/badge/Nova-5.x-blue.svg)
-![PHP](https://img.shields.io/badge/PHP-8.2+-blue.svg)
-:::
+<p align="center">
+  <img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="License: MIT" />
+  <img src="https://img.shields.io/badge/Nova-5.x-blue.svg" alt="Nova 5" />
+  <img src="https://img.shields.io/badge/PHP-8.2+-blue.svg" alt="PHP 8.2+" />
+</p>
 
 ## Features
 
