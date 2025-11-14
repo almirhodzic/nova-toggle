@@ -8,6 +8,7 @@ This Laravel Nova 5 Toggle Field removes the detour into the edit page and lets 
   <img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="License: MIT" />
   <img src="https://img.shields.io/badge/Nova-5.x-blue.svg" alt="Nova 5" />
   <img src="https://img.shields.io/badge/PHP-8.2+-blue.svg" alt="PHP 8.2+" />
+  <img src="https://img.shields.io/packagist/dt/almirhodzic/nova-toggle-5.svg" alt="Downloads" />
 </p>
 
 ## Features
